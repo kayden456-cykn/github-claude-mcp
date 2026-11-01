@@ -405,6 +405,17 @@ app.get("/.well-known/oauth-protected-resource", (_req, res) => {
   });
 });
 
+// Path-aware protected-resource metadata for the /mcp resource.
+app.get("/.well-known/oauth-protected-resource/mcp", (_req, res) => {
+  res.json({
+    resource: RESOURCE,
+    authorization_servers: [ISSUER],
+    bearer_methods_supported: ["header"],
+    scopes_supported: ["github"],
+    resource_name: "GitHub Claude MCP"
+  });
+});
+
 // Dynamic Client Registration (public clients with PKCE)
 app.post("/register", (req, res) => {
   const redirectUris = req.body?.redirect_uris;
